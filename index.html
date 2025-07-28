@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head><title>Chụp ảnh từ webcam</title></head>
+<body>
+  <h2>🎥 Camera live</h2>
+  <video id="video" width="640" height="480" autoplay></video><br><br>
+  
+  <button id="capture">📸 Chụp ảnh</button>
+  <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureBtn = document.getElementById('capture');
+
+    // Mở webcam
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+      })
+      .catch(err => {
+        console.error("Không thể mở webcam:", err);
+      });
+
+    // Khi nhấn nút chụp
+    captureBtn.onclick = () => {
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageData = canvas.toDataURL('image/jpeg'); // base64
+
+      // Gửi ảnh lên server Flask
+      fetch('/upload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ image: imageData })
+      })
+      .then(res => res.text())
+      .then(msg => alert(msg))
+      .catch(err => console.error("Lỗi gửi ảnh:", err));
+    };
+  </script>
+</body>
+</html>
