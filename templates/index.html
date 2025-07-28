@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <title>Camera App</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8  offset-lg-2">
+			
+            <h2 class="mt-5">CAMERA APP by Tri Nguyen</h2>
+			<form method="post" action="{{ url_for('tasks') }}">
+				<input type="submit" value="{{lb_button}}" name="stop" />
+				<input type="submit" {% if lb_button == 'Bật Camera' %} disabled {% endif %} value="Chụp Ảnh" name="click"/>						
+			</form>
+            <div id="camera">
+				{% if lb_button != 'Bật Camera' %}						
+					<img src="{{ url_for('video_feed') }}" height="60%" alt="video feed">
+				{% else %}
+					{% if capture == 1 %}
+						<img src="{{ img_url }}" alt="captured image">						
+					{% else %}
+						<i class="bi-image"><strong style="margin-left: 5px;">Chưa bật Camera</strong></i>
+					{% endif %}
+				{% endif %}
+			</div>					
+        </div>
+    </div>
+</div>
+</body>
+</html>
