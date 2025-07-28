@@ -3,8 +3,6 @@ import cv2 as cv
 import threading
 import datetime
 import os
-import numpy as np
-from PIL import Image
 
 global switch, lb_button, capture, img_url
 
