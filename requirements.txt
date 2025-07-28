@@ -1,0 +1,7 @@
+flask
+opencv-python
+gunicorn
+render_template
+Response
+request
+url_for
