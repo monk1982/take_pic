@@ -19,7 +19,7 @@
 			</form>
             <div id="camera">
 				{% if lb_button != 'Bật Camera' %}						
-					<img src="{{ url_for('video_feed') }}" height="60%" alt="video feed">
+					<img src="{{ url_for('video_feed') }}" alt="video feed">
 				{% else %}
 					{% if capture == 1 %}
 						<img src="{{ img_url }}" alt="captured image">						
